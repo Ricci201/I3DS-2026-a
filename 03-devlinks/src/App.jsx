@@ -16,7 +16,7 @@ function App() {
       <div className="switch">
         Botão switch
       </div>
-
+      
       <ul>
         <Links url={""}>Inscreva-se</Links>
         <Links url={""}>Minha Playlist</Links>
