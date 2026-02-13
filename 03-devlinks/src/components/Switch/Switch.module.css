@@ -18,7 +18,7 @@
         top: 50%;
         transform: translateY(-50%);
 
-        animation: slide-out 0.2s;
+        animation: slide-out 0.2s forwards;
     }
 
     & button:hover{
@@ -48,13 +48,13 @@
         left: 0;
     }
     to {
-        left: 50%;
+        left: 60%;
     }
 }
 
 @keyframes slide-out {
     from{
-        left: 50%;
+        left: 90%;
     }
     to {
         left: 0%;
