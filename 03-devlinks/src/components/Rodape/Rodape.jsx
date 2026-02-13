@@ -1,12 +1,13 @@
 import React from 'react'
+import "./Rodape.module.css"
 
 const Rodape = ({children}) => {
   return (
-    <div>
+    <footer>
       <p>
         Feito com ❤️ por <a href='https://github.com'>{children}</a>
       </p>
-    </div>
+    </footer>
   )
 }
 
