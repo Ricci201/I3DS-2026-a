@@ -1,12 +1,11 @@
-import React, { Children } from 'react';
-import styles from "./Link.module.css";
+import styles from "./Links.module.css";
 
-const Links = ({url, children}) => {
+const Links = ({ children, link }) => {
   return (
     <li>
-      <a href={url}>{children}</a>
+      <a href={link}>{children}</a>
     </li>
-  )
-}
+  );
+};
 
-export default Links
+export default Links;

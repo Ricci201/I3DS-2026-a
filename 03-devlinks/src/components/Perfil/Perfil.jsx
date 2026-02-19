@@ -1,15 +1,12 @@
-import React from 'react'
-import styles from "./Perfil.module.css"
+import styles from "./perfil.module.css";
 
-const Perfil = ({children, fotoPerfil}) => {
+const Perfil = ({ children, fotoPerfil }) => {
   return (
-   
-      <div id={styles.Perfil}>
-        <img src={fotoPerfil} alt="" />
-        <p>@{children}</p>
-      </div>
+    <div id={styles.perfil}>
+      <img src={fotoPerfil} alt="" />
+      <p>{children}</p>
+    </div>
+  );
+};
 
-  )
-}
-
-export default Perfil
+export default Perfil;

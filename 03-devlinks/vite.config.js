@@ -1,12 +1,12 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000, //Muda a porta vite(5173) para padrão react (3000)
-    open: true, //Abre o navegador automaticamente
-    host: true, //Permite que tenha acesso via IP na rede local
+    port: 3000, //Porta para conexao, altere quando necessario
+    open: true, //Abre automaticamente o navegador e inicia o server
+    host: true, //Habilitar rede externa
   },
 });

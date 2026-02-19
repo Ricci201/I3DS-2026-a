@@ -1,65 +1,72 @@
-:root{
-    --bg-url: url(./assets/bg-desktop-light.jpg) ;
-    --text-color: #000;
-    --stroke-color: rgba(0, 0, 0, 0.5);
-    --surface-color: rgba(0, 0, 0, 0.1);
-    --surface-color-hover: rgba(0, 0, 0, 0.4);
-    --switch-bg-url: url(./assets/Sun.svg);
-    --highlight-color: rgba(0, 0, 0, 0.2);
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-url: url(./img/bg-desktop.jpg);
+  --text-color: #fff;
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.1);
+  --surface-color-hover: rgba(255, 255, 255, 0.5);
+  --switch-bg-url: url(./img/MoonStars.svg);
+  --highlight-color: rgba(255, 255, 255, 0.2);
 }
 
 .light {
-    --bg-url: url(./assets/bg-desktop.jpg) ;
-    --text-color: #fff;
-    --stroke-color: rgba(255, 255, 255, 0.5);
-    --surface-color: rgba(255, 255, 255, 0.1);
-    --surface-color-hover: rgba(255, 255, 255, 0.4);
-    --switch-bg-url: url(./assets/MoonStars.svg);
-    --highlight-color: rgba(255, 255, 255, 0.2);
+  --bg-url: url(./img/bg-desktop-light.jpg);
+  --text-color: #000;
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(0, 0, 0, 0.1);
+  --surface-color-hover: rgba(0, 0, 0, 0.5);
+  --switch-bg-url: url(./img/Sun.svg);
+  --highlight-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Modificações do body */
+#App * {
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
 }
 
 #App {
-    font-family: "Inter", sans serif;
-    height: 100vh;
-    background-image: var(--bg-url);
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: cover;
-    color: var(--text-color);
+  background: var(--bg-url) no-repeat top center / cover;
+  height: 100vh;
 }
 
-ul{
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 24px;
+#container {
+  width: 100%;
+  max-width: 588px;
+  margin: 0px auto 0px;
+  padding: 0 24px;
+  padding-top: 56px;
 }
 
-#SocialLink {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    & a {
-        color: var(--text-color);
-        font-size: x-large;
-    }
+#links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
 }
 
-#Links {
-    display: flex;
-    justify-content: center;
+#socialLinks {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  gap: 16px;
 
-    & ul {
-        width: 100%;
-
-        max-width: 588px;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 24px;
-    }
+  font-size: 24px;
 }
 
+@media (max-width: 700px) {
+  :root {
+    --bg-url: url(./img/bg-mobile.jpg);
+  }
+  .light {
+    --bg-url: url(./img/bg-mobile-light.jpg);
+  }
+}

@@ -1,47 +1,45 @@
-import { useState } from 'react'
-import './App.css'
-import Links from './components/Links/Links'
-import Perfil from './components/Perfil/Perfil'
-import Rodape from './components/Rodape/Rodape'
-import SocialLink from './components/SocialLink/SocialLink'
-import Switch from './components/Switch/Switch'
+import "./App.css";
+import foto from "./img/avatar.jpg";
 
-function App() {
-  
-  const[isLight, setIsLight] = useState(true)
+import Perfil from "./components/perfil/perfil";
+import Switch from "./components/switch/Switch";
+import Links from "./components/links/Links";
+import SocialLinks from "./components/socialLinks/SocialLinks";
+import Rodape from "./components/rodape/Rodape";
+import { useState } from "react";
+
+const App = () => {
+  const [isLight, setIsLight] = useState(true);
+
   const troca = () => {
-    setIsLight(!isLight)
-  }
+    setIsLight(!isLight);
+  };
 
   return (
-    
     <div id="App" className={isLight ? "light" : ""}>
-      <Perfil fotoPerfil={"https://placehold.co/100"}>
-        Lucas Ricci
-      </Perfil>
+      <Perfil fotoPerfil={foto}>@NewProfCastello</Perfil>
 
-      <Switch troca={troca} isLight={isLight}/>
+      <Switch troca={troca} isLight={isLight} />
 
-      <div className="switch">
-      </div>
-      
       <ul>
-        <Links url={""}>Inscreva-se</Links>
-        <Links url={""}>Minha Playlist</Links>
-        <Links url={""}>Me Pague um açai</Links>
-        <Links url={""}>Conheça o curso</Links>
+        <Links link={"https://github.com/ProfCastello"}>GitHub</Links>
+        <Links link={"https://instagram.com/"}>Instagram</Links>
+        <Links link={"https://github.com/ProfCastello"}>Portifólio</Links>
+        <Links link={"https://github.com/ProfCastello"}>Projetos</Links>
       </ul>
 
-      <div id="SocialLink">
-        <SocialLink url={"https://github.com"} icon={"logo-github"} />
-        <SocialLink url={"https://instagram.com"} icon={"logo-instagram"} />
-        <SocialLink url={"https://linkedin.com"} icon={"logo-linkedin"} />
-        <SocialLink url={"https://youtube.com"} icon={"logo-youtube"} />
+      <div id="socialLinks">
+        <SocialLinks
+          link={"https://github.com/ProfCastello"}
+          icon={"logo-github"}
+        />
+        <SocialLinks link={"https://instagram.com/"} icon={"logo-instagram"} />
+        <SocialLinks link={"https://youtube.com"} icon={"logo-youtube"} />
+        <SocialLinks link={"https://linked.in"} icon={"logo-linkedin"} />
       </div>
-
-      <Rodape>Lucas Ricci</Rodape>
+      <Rodape>NewProfCastello</Rodape>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
