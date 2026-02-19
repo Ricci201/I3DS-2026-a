@@ -4,6 +4,7 @@ footer {
   padding-top: 24px;
 
   & a {
+    color: var(--text-color);
     text-decoration: none;
   }
 }

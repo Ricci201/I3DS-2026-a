@@ -1,14 +1,13 @@
-import "./App.css";
-import foto from "./img/avatar.jpg";
-
-import Perfil from "./components/perfil/perfil";
-import Switch from "./components/switch/Switch";
-import Links from "./components/links/Links";
-import SocialLinks from "./components/socialLinks/SocialLinks";
-import Rodape from "./components/rodape/Rodape";
 import { useState } from "react";
+import "./App.css";
+import Link from "./components/Link/Link";
+import Perfil from "./components/Perfil/Perfil";
+import Rodape from "./components/Rodape/Rodape";
+import SocialLink from "./components/SocialLink/SocialLink";
+import Switch from "./components/Switch/Switch";
+import foto from "./assets/perfilLucas.jpg";
 
-const App = () => {
+function App() {
   const [isLight, setIsLight] = useState(true);
 
   const troca = () => {
@@ -17,29 +16,28 @@ const App = () => {
 
   return (
     <div id="App" className={isLight ? "light" : ""}>
-      <Perfil fotoPerfil={foto}>@NewProfCastello</Perfil>
+      <Perfil fotoPerfil={foto}>Lucas Ricci</Perfil>
 
       <Switch troca={troca} isLight={isLight} />
 
-      <ul>
-        <Links link={"https://github.com/ProfCastello"}>GitHub</Links>
-        <Links link={"https://instagram.com/"}>Instagram</Links>
-        <Links link={"https://github.com/ProfCastello"}>Portifólio</Links>
-        <Links link={"https://github.com/ProfCastello"}>Projetos</Links>
-      </ul>
-
-      <div id="socialLinks">
-        <SocialLinks
-          link={"https://github.com/ProfCastello"}
-          icon={"logo-github"}
-        />
-        <SocialLinks link={"https://instagram.com/"} icon={"logo-instagram"} />
-        <SocialLinks link={"https://youtube.com"} icon={"logo-youtube"} />
-        <SocialLinks link={"https://linked.in"} icon={"logo-linkedin"} />
+      <div id="Link">
+        <ul>
+          <Link url={"https://www.youtube.com/"}>Inscreva-se</Link>
+          <Link url={"https://open.spotify.com/intl-pt"}>Minha playlist</Link>
+          <Link url={"https://acaidabarra.com.br/"}>Me pague um Açai!</Link>
+          <Link url={"https://www.figma.com/"}>Conheça o Curso DEV</Link>
+        </ul>
       </div>
-      <Rodape>NewProfCastello</Rodape>
+
+      <div id="SocialLinks">
+        <SocialLink url={"https://github.com"} icon={"logo-github"} />
+        <SocialLink url={"https://instagram.com"} icon={"logo-instagram"} />
+        <SocialLink url={"https://youtube.com"} icon={"logo-youtube"} />
+        <SocialLink url={"https://br.linkedin.com/"} icon={"logo-linkedin"} />
+      </div>
+      <Rodape>ProfCastello</Rodape>
     </div>
   );
-};
+}
 
 export default App;
