@@ -38,6 +38,36 @@
         }
     }
 
+    /* Modificando o terceiro item "div" do elemento .movie */
+    /* Titulo */
+
+    & div:nth-of-type(3) {
+        z-index: 2;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 16px 24px 24px;
+        background: var(--bg-secondary);
+        text-align: center;
+
+        transition: all 0.3s ease;
+
+        & span {
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: var(--text-secondary);
+        }
+
+        & h3 {
+            margin-top: 5px;
+            color: var(--accent-color);
+            transition: color ;
+        }
+    }
+
     /* Estado ao passar o mouse por cima do bloco "MovieCard" */
     &:hover {
         box-shadow: 0 30px 18px -8px rgba(0, 0, 0, 0.4);
@@ -48,7 +78,11 @@
         }
 
         & div:nth-of-type(2) {
-            opacity: 0.3;
+            opacity: 0.7;
+        }
+
+        & div:nth-of-type(3) {
+            /* background-color: transparent;  */
         }
     }
 }
