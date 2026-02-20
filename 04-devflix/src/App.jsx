@@ -24,9 +24,9 @@ const App = () => {
     setMovies(data.Search);
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     searchMovies("Spider Man");
-  }, []);
+  }, []); => Termo de pesquisa */
 
   return (
     <div id="App">
@@ -48,7 +48,7 @@ const App = () => {
           ))}
         </div>
       ) : (
-        <h2>😒 Filme não encontrado 😒</h2>
+        <h2 className="empty">😒 Filme não encontrado 😒</h2>
       )}
 
       <Rodape link={"https://github.com/Ricci201"}>Lucas Ricci</Rodape>
