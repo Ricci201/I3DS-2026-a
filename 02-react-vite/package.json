@@ -15,13 +15,21 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+<<<<<<< HEAD
     "@types/react": "^19.2.5",
+=======
+    "@types/react": "^19.2.7",
+>>>>>>> 47c1e1a41db400286093cca62066422b7272a173
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+<<<<<<< HEAD
     "vite": "^7.2.4"
+=======
+    "vite": "^7.3.1"
+>>>>>>> 47c1e1a41db400286093cca62066422b7272a173
   }
 }
