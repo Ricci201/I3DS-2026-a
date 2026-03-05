@@ -25,9 +25,11 @@ const App = () => {
     setMovies(data.Search);
   };
 
-  /* useEffect(() => {
-    searchMovies("Spider Man");
-  }, []); => Termo de pesquisa */
+  useEffect(() => {
+    (async () => {
+      await searchMovies("Spider Man");
+    })();
+  }, []);
 
   return (
     <div id="App">
@@ -54,7 +56,7 @@ const App = () => {
       {movies?.length > 0 ? (
         <div className="container">
           {movies.map((movie, index) => (
-            <MovieCard key={index} {...movie} />
+            <MovieCard key={index} {...movie} apiUrl={apiUrl} />
           ))}
         </div>
       ) : (
