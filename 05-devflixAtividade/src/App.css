@@ -1,28 +1,42 @@
-:root { /* :root -> variáveis de css no tema original projetado */
+:root { /* Variáveis globais do tema claro */
+
   --font-raleway: "Raleway", sans-serif;
 
-  /* Light tema (padrão) */
-  --bg-primary: #f5f5f5;
-  --bg-secondary: #ffffff; 
-  --text-primary: #333;
-  --text-secondary: #666;
-  --text-placeholder: #a1a1a1;
-  --accent-color: #ff6b6b;
-  --shadow-color: rgba(0,0,0,0.1);
-  --shadow: 0px 2px 8px var(--shadow-color);
+  /* Fundo */
+  --bg-primary: linear-gradient(135deg, #f7f7f7 0%, #ececec 100%);
+  --bg-secondary: #ffffff;
+
+  /* Texto */
+  --text-primary: #1f1f1f;
+  --text-secondary: #555555;
+  --text-placeholder: #9a9a9a;
+
+  /* Amarelo escuro elegante */
+  --accent-color: #d4a017;
+  --accent-gradient: linear-gradient(135deg, #d4a017, #b8860b);
+
+  /* Sombras suaves */
+  --shadow-color: rgba(0,0,0,0.08);
+  --shadow: 
+    0px 4px 12px rgba(0,0,0,0.08),
+    0px 2px 6px rgba(0,0,0,0.05);
 }
 
 @media (prefers-color-scheme: dark){
-  /* Dark tema */ 
+  /* Dark tema com gradiente */
   :root{
-    --bg-primary: #212426;
-    --bg-secondary: #343739;
-    --text-primary: #f5f5f5;
-    --text-secondary: #f0f0f0;
-    --text-placeholder: #a1a1a1;
-    --accent-color: #ffa500;
-    --shadow-color: rgba(0,0,0,0.4);
-    --shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+    --bg-primary: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    --bg-secondary: linear-gradient(135deg, #1f1c2c, #2c3e50);
+
+    --text-primary: #ffffff;
+    --text-secondary: #dcdcdc;
+    --text-placeholder: #9a9a9a;
+
+    --accent-color: #ffb347;
+
+    --shadow-color: rgba(0,0,0,0.5);
+    --shadow: 6px 6px 10px rgba(0,0,0,0.6),
+              -6px -6px 10px rgba(255,255,255,0.05);
   }
 }
 
@@ -47,6 +61,7 @@ body {
 #Logo {
   overflow: hidden;
   
+  margin: 0;
   max-width: 70%;
   height: auto;
   display: block;
