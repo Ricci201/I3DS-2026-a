@@ -1,148 +1,76 @@
 .modalBackdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  animation: fadeIn 0.3s ease-in-out forwards;
-  transition: background 0.3s ease;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8); z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px); animation: fadeIn 0.3s ease;
 }
 
 .movieModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 850px;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  background: var(--bg-secondary);
-  box-shadow: 0px 4px 15px var(--shadow-color);
-  z-index: 1000;
-  color: var(--text-primary);
-  max-height: 100vh;
-  animation: fadeIn 0.3s ease-in-out forwards;
-  transition: all 0.3s ease;
+  position: relative; width: 850px; max-width: 95%; border-radius: 12px;
+  background: #181818; color: #fff; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: slideUp 0.4s ease;
 }
 
-.movieInfo {
-  width: 100%;
-  border-radius: inherit;
-  background: var(--bg-secondary);
-  position: relative;
-  transition: all 0.3s ease;
+.movieInfo { width: 100%; position: relative; }
+.movieInfo img { width: 100%; height: 450px; object-fit: cover; display: block; border-radius: 12px 12px 0 0; }
 
-  & img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    position: relative;
-    width: 100%;
-    height: 480px;
-    object-fit: cover;
-    object-position: top;
-  }
+/* CONTROLES TOPO (BOTÕES PEQUENOS) */
+.controlsTop {
+  position: absolute; top: 15px; right: 15px;
+  display: flex; align-items: center; gap: 10px; z-index: 10;
 }
 
 .btnClose {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 15px;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.2); color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 12px;
 }
 
+.langBtn {
+  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px; padding: 4px 6px; cursor: pointer; display: flex;
+}
+
+.langBtn img { width: 18px; height: 12px; }
+
+.langDropdown {
+  position: absolute; top: 35px; right: 0; background: #232323;
+  list-style: none; padding: 5px 0; border-radius: 4px; width: 130px;
+  border: 1px solid #444; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.langDropdown li {
+  padding: 6px 12px; display: flex; align-items: center; gap: 8px;
+  cursor: pointer; font-size: 12px;
+}
+
+.langDropdown li:hover { background: #e50914; }
+.langDropdown li img { width: 16px; height: 10px; }
+
+/* TÍTULO E FAVICON PEQUENO */
 .movieType {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 30%;
-  background: linear-gradient(rgba(255, 255, 255, 0), var(--bg-secondary));
-  transition: all 0.3s ease;
-  & div:nth-of-type(1) {
-    position: absolute;
-    top: 2em;
-    left: 2em;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-  }
-  & div:nth-of-type(1) img {
-    width: 5%;
-    height: 5%;
-    border-radius: 0;
-  }
-
-  a {
-    margin-top: 1em;
-    padding: 0.2em 0.7em;
-    background: var(--accent-color);
-    border-radius: 0.4em;
-    text-decoration: none;
-    font-weight: bolder;
-    color: #ffffff;
-    transition: all 0.3s ease;
-  }
+  position: absolute; bottom: 0; width: 100%; padding: 40px 2em 20px;
+  background: linear-gradient(transparent, #181818);
 }
 
-.containerMisc {
-  font-size: 14pt;
-  display: flex;
-  padding: 2em 2em 1em;
+.typeBadge { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; color: #e50914; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+.typeBadge img { width: 14px !important; height: 14px !important; object-fit: contain; }
+
+.movieType h1 { font-size: 2.5rem; margin: 0 0 10px; line-height: 1.1; font-weight: 800; }
+
+.btnWatch {
+  display: inline-flex; padding: 10px 20px; background: #e50914;
+  border-radius: 4px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem;
 }
 
-.containerFlex {
-  flex: 1;
-}
+/* CONTEÚDO */
+.containerMisc { display: flex; flex-direction: column; gap: 10px; padding: 1.5em 2em; }
+.containerFlex { display: flex; flex-wrap: wrap; gap: 20px; font-size: 1rem; }
+.containerFlex strong { color: #e50914; }
+.desc { padding: 0 2em 2.5em; font-size: 1rem; line-height: 1.6; color: #ccc; text-align: justify; }
 
-.desc {
-  padding: 0 2em 2em;
-  text-align: justify;
-}
-
-@media screen and (max-width: 768px) {
-  .movieModal {
-    width: 550px;
-  }
-}
-
-@media screen and (max-width: 430px) {
-  .movieModal {
-    width: 320px;
-    margin-top: 2em;
-  }
-
-  .desc {
-    padding-bottom: 3.5em;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .modalBackdrop {
-    background: rgba(0, 0, 0, 0.4);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .movieType {
-    background: linear-gradient(rgba(255, 255, 255, 0), #212426);
-  }
-}
+/* ANIMAÇÕES */
+.spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top-color: #e50914; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
