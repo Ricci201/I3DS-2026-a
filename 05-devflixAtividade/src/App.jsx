@@ -6,51 +6,51 @@ import lupa from "./assets/search.svg";
 
 import Rodape from "./components/Rodape/Rodape";
 import MovieCard from "./components/MovieCard/MovieCard";
+import MovieDescription from "./components/MovieDescription/MovieDescription";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
+  const [translatedMovies, setTranslatedMovies] = useState([]);
   const [search, setSearch] = useState("");
-  const [language, setLanguage] = useState("pt-BR");
+  const [language, setLanguage] = useState("pt");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [loadingTranslate, setLoadingTranslate] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+
+  const [placeholderText, setPlaceholderText] = useState("Search for movies");
+  const [emptyText, setEmptyText] = useState("Movie not found");
 
   const apiKey = import.meta.env.VITE_OMDB_API_KEY;
   const apiUrl = `https://omdbapi.com/?apikey=${apiKey}`;
 
   const languages = [
     {
-      id: "pt-BR",
+      id: "pt",
       name: "Português",
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg",
     },
     {
-      id: "en-US",
+      id: "en",
       name: "English",
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg",
     },
     {
-      id: "es-ES",
+      id: "es",
       name: "Español",
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg",
     },
     {
-      id: "fr-FR",
+      id: "fr",
       name: "Français",
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg",
     },
     {
-      id: "de-DE",
+      id: "de",
       name: "Deutsch",
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg",
     },
     {
-      id: "it-IT",
-      name: "Italiano",
-      flag: "https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg",
-    },
-    {
-      id: "ja-JP",
+      id: "ja",
       name: "日本語",
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg",
     },
@@ -61,92 +61,72 @@ const App = () => {
     },
   ];
 
-  const i18n = {
-    "pt-BR": {
-      placeholder: "Pesquise por filmes",
-      empty: "Filme não encontrado",
-      details: {
-        year: "Ano",
-        genre: "Gênero",
-        plot: "Sinopse",
-        rating: "Avaliação",
-      },
-    },
-    "en-US": {
-      placeholder: "Search for movies",
-      empty: "Movie not found",
-      details: { year: "Year", genre: "Genre", plot: "Plot", rating: "Rating" },
-    },
-  };
-
-  const translateText = async (text, targetLang) => {
-    if (!text || text === "N/A" || targetLang === "en-US") return text;
+  const translateText = async (text, tl) => {
+    if (!text || tl === "en") return text;
 
     try {
-      const langPair = `en|${targetLang.split("-")[0]}`;
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${tl}&dt=t&q=${encodeURIComponent(text)}`;
 
-      const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-          text,
-        )}&langpair=${langPair}`,
-      );
+      const res = await fetch(url);
+      const data = await res.json();
 
-      const data = await response.json();
-      return data.responseData.translatedText;
+      return data[0].map((item) => item[0]).join("");
     } catch {
       return text;
     }
   };
 
-  const fetchMovieDetails = async (id) => {
-    if (!id) return;
+  const translateInterface = async (lang) => {
+    const [p, e] = await Promise.all([
+      translateText("Search for movies", lang),
+      translateText("Movie not found", lang),
+    ]);
 
-    setLoadingTranslate(true);
+    setPlaceholderText(p);
+    setEmptyText(e);
+  };
 
-    try {
-      const response = await fetch(`${apiUrl}&i=${id}&plot=full`);
-      const movieData = await response.json();
+  const translateMovies = async (moviesList, lang) => {
+    const translated = await Promise.all(
+      moviesList.map(async (movie) => {
+        const title = await translateText(movie.Title, lang);
 
-      const [tTitle, tPlot, tGenre] = await Promise.all([
-        translateText(movieData.Title, language),
-        translateText(movieData.Plot, language),
-        translateText(movieData.Genre, language),
-      ]);
+        return {
+          ...movie,
+          Title: title,
+        };
+      }),
+    );
 
-      setSelectedMovie({
-        ...movieData,
-        Title: tTitle,
-        Plot: tPlot,
-        Genre: tGenre,
-      });
-    } catch (error) {
-      console.error("Erro ao buscar filme:", error);
-    } finally {
-      setLoadingTranslate(false);
-    }
+    setTranslatedMovies(translated);
   };
 
   const searchMovies = async (title) => {
     if (!title) return;
 
-    try {
-      const response = await fetch(`${apiUrl}&s=${title}`);
-      const data = await response.json();
+    const response = await fetch(`${apiUrl}&s=${title}`);
+    const data = await response.json();
 
-      if (data && data.Search) {
-        setMovies(data.Search);
-      } else {
-        setMovies([]);
-      }
-    } catch (error) {
-      console.error("Erro ao buscar filmes:", error);
+    if (data.Search) {
+      setMovies(data.Search);
+      translateMovies(data.Search, language);
+    } else {
       setMovies([]);
+      setTranslatedMovies([]);
     }
   };
 
   useEffect(() => {
     searchMovies("Spider Man");
   }, []);
+
+  useEffect(() => {
+    translateInterface(language);
+
+    if (movies.length > 0) {
+      translateMovies(movies, language);
+    }
+  }, [language]);
 
   const currentLangData = languages.find((l) => l.id === language);
 
@@ -189,33 +169,35 @@ const App = () => {
           onKeyDown={(e) => e.key === "Enter" && searchMovies(search)}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
-          placeholder={i18n[language]?.placeholder || i18n["en-US"].placeholder}
+          placeholder={placeholderText}
         />
 
         <img onClick={() => searchMovies(search)} src={lupa} alt="Pesquisar" />
       </div>
 
-      {movies?.length > 0 ? (
+      {translatedMovies?.length > 0 ? (
         <div className="container">
-          {movies.map((movie) => (
+          {translatedMovies.map((movie) => (
             <div
               key={movie.imdbID}
-              onClick={() => fetchMovieDetails(movie.imdbID)}
+              onClick={() => setSelectedMovie(movie.imdbID)}
               className="card-wrapper"
             >
-              <MovieCard {...movie} apiUrl={apiUrl} />
+              <MovieCard {...movie} />
             </div>
           ))}
         </div>
       ) : (
-        <h2 className="empty">{i18n[language]?.empty}</h2>
+        <h2 className="empty">{emptyText}</h2>
       )}
 
-      {loadingTranslate && (
-        <div className="loader-overlay">
-          <div className="spinner"></div>
-          <p>Traduzindo conteúdo...</p>
-        </div>
+      {selectedMovie && (
+        <MovieDescription
+          movieID={selectedMovie}
+          apiUrl={apiUrl}
+          language={language}
+          click={() => setSelectedMovie(null)}
+        />
       )}
 
       <Rodape link={"https://github.com/Ricci201"}>Lucas Ricci</Rodape>

@@ -2,51 +2,95 @@ import { useEffect, useState } from "react";
 import styles from "./MovieDescription.module.css";
 
 const MovieDescription = (props) => {
-  const [movieDesc, setMovieDesc] = useState([]);
+  const [movieDesc, setMovieDesc] = useState(null);
+
+  const currentLanguage = props.language;
+
+  const translateText = async (text, targetLang) => {
+    if (!text || text === "N/A" || targetLang === "en") return text;
+
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      return data[0].map((part) => part[0]).join("");
+    } catch {
+      return text;
+    }
+  };
 
   useEffect(() => {
-    fetch(`${props.apiUrl}&i=${props.movieID}`)
-      .then((response) => response.json())
-      .then((data) => setMovieDesc(data))
-      .catch((error) => console.error(error));
-  }, []);
+    const fetchMovie = async () => {
+      try {
+        const response = await fetch(
+          `${props.apiUrl}&i=${props.movieID}&plot=full`,
+        );
+
+        const data = await response.json();
+
+        const [title, plot, genre, actors, type] = await Promise.all([
+          translateText(data.Title, currentLanguage),
+          translateText(data.Plot, currentLanguage),
+          translateText(data.Genre, currentLanguage),
+          translateText(data.Actors, currentLanguage),
+          translateText(data.Type, currentLanguage),
+        ]);
+
+        setMovieDesc({
+          ...data,
+          Title: title,
+          Plot: plot,
+          Genre: genre,
+          Actors: actors,
+          Type: type,
+        });
+      } catch (error) {
+        console.error("Erro ao buscar filme:", error);
+      }
+    };
+
+    fetchMovie();
+  }, [props.movieID, currentLanguage]);
+
+  // ❗ não renderiza nada até ter dados
+  if (!movieDesc) return null;
 
   return (
     <div className={styles.modalBackdrop} onClick={props.click}>
       <div className={styles.movieModal} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.btnClose} onClick={props.click}>
+          ✕
+        </button>
+
         <div className={styles.movieInfo}>
-          <img src={movieDesc.Poster} alt="" />
+          <img
+            src={
+              movieDesc.Poster !== "N/A"
+                ? movieDesc.Poster
+                : "https://via.placeholder.com/400"
+            }
+            alt={movieDesc.Title}
+          />
 
-          <button className={styles.btnClose} onClick={props.click}>
-            X
-          </button>
+          <div className={styles.movieContent}>
+            <h1>{movieDesc.Title}</h1>
 
-          <div className={styles.movieType}>
-            <div>
-              <img src="/favicon.png" alt="" />
-              {movieDesc.Type}
-              <h1>{movieDesc.Title}</h1>
-              <a
-                href={`https://google.com/search?q=${encodeURIComponent(movieDesc.Title)}`}
-                target="_blank"
-              >
-                ▶️ Assistir
-              </a>
-            </div>
+            <p className={styles.rating}>⭐ {movieDesc.imdbRating}</p>
+
+            <p className={styles.infoRow}>
+              <strong>Genre:</strong> {movieDesc.Genre}
+            </p>
+
+            <p className={styles.infoRow}>
+              <strong>Actors:</strong> {movieDesc.Actors}
+            </p>
+
+            <p className={styles.plot}>
+              <strong>Plot:</strong> {movieDesc.Plot}
+            </p>
           </div>
-        </div>
-        <div className={styles.containerMisc}>
-          <div className={styles.containerFlex}>
-            Avaliação: {movieDesc.imdbRating} | Duração: {movieDesc.Runtime} |{" "}
-            {movieDesc.Released}
-          </div>
-          <div className={styles.containerFlex}>
-            <p>Elenco: {movieDesc.Actors}</p>
-            <p>Gênero: {movieDesc.Genre}</p>
-          </div>
-        </div>
-        <div className={styles.desc}>
-          <p>Sinopse: {movieDesc.Plot}</p>
         </div>
       </div>
     </div>
