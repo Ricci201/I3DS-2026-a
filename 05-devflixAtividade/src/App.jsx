@@ -36,7 +36,7 @@ const App = () => {
       <img
         id="Logo"
         src={logo}
-        alt="Logotipo do serviço de streaming Devflix, com letras vermelhas e fundo preto, promovendo conteúdo de séries, filmes e entretenimento online."
+        alt="Logotipo do serviço de streaming SSflix, com letras amarelas e fundo preto, promovendo conteúdo de séries, filmes e entretenimento online."
       />
 
       <div className="search">
@@ -49,7 +49,7 @@ const App = () => {
         <img
           onClick={() => searchMovies(search)}
           src={lupa}
-          alt="Botão de ação para pesquisa!"
+          alt="Botão de ação para pesquisar!"
         />
       </div>
 

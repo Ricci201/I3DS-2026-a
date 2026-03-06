@@ -1,42 +1,47 @@
-:root { /* Variáveis globais do tema claro */
+:root {
 
   --font-raleway: "Raleway", sans-serif;
 
-  /* Fundo */
-  --bg-primary: linear-gradient(135deg, #f7f7f7 0%, #ececec 100%);
-  --bg-secondary: #ffffff;
+  /* Fundo claro com gradiente */
+  --bg-primary: linear-gradient(135deg, #f8f8f8 0%, #e6e6e6 100%);
+  --bg-secondary: linear-gradient(135deg, #ffffff, #f3f3f3);
 
-  /* Texto */
-  --text-primary: #1f1f1f;
-  --text-secondary: #555555;
+  /* Textos */
+  --text-primary: #1c1c1c;
+  --text-secondary: #4a4a4a;
   --text-placeholder: #9a9a9a;
 
   /* Amarelo escuro elegante */
   --accent-color: #d4a017;
-  --accent-gradient: linear-gradient(135deg, #d4a017, #b8860b);
 
-  /* Sombras suaves */
-  --shadow-color: rgba(0,0,0,0.08);
-  --shadow: 
-    0px 4px 12px rgba(0,0,0,0.08),
-    0px 2px 6px rgba(0,0,0,0.05);
+  /* Sombra com glow amarelo */
+  --shadow-color: rgba(212,160,23,0.35);
+
+  --shadow:
+    0px 8px 18px rgba(212,160,23,0.35),
+    0px 4px 10px rgba(0,0,0,0.08);
+
 }
 
 @media (prefers-color-scheme: dark){
-  /* Dark tema com gradiente */
   :root{
-    --bg-primary: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    --bg-secondary: linear-gradient(135deg, #1f1c2c, #2c3e50);
+    --bg-primary: linear-gradient(135deg, #1a1a1a, #242424, #2e2e2e);
+
+    --bg-secondary: linear-gradient(135deg, #2a2a2a, #333333);
 
     --text-primary: #ffffff;
-    --text-secondary: #dcdcdc;
-    --text-placeholder: #9a9a9a;
+    --text-secondary: #d6d6d6;
+    --text-placeholder: #9c9c9c;
 
-    --accent-color: #ffb347;
+    --accent-color: #d4a017;
 
-    --shadow-color: rgba(0,0,0,0.5);
-    --shadow: 6px 6px 10px rgba(0,0,0,0.6),
-              -6px -6px 10px rgba(255,255,255,0.05);
+    --accent-glow: rgba(212,160,23,0.45);
+
+    --shadow-color: rgba(212,160,23,0.25);
+    --shadow: 
+      8px 8px 18px rgba(212,160,23,0.25),
+      -4px -4px 10px rgba(255,255,255,0.04);
+
   }
 }
 

@@ -1,12 +1,24 @@
 import React from "react";
-import "./Rodape.module.css";
+import styles from "./Rodape.module.css";
 
 const Rodape = ({ children, link }) => {
   return (
-    <footer>
-      <p>
-        Feito com 🫰🏻por <a href={link}>{children}</a>
+    <footer className={styles.footer}>
+      <p className={styles.text}>
+        Feito com ❤️ por{" "}
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          {children}
+        </a>
       </p>
+
+      <span className={styles.copy}>
+        © {new Date().getFullYear()} SSFlix
+      </span>
     </footer>
   );
 };
