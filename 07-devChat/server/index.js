@@ -15,7 +15,7 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   // CORS (CROSS-ORIGIN RESOURCE SHARING): PERMITE QUE CLIENTES DE OUTROS DOMINIOS/IPs SE CONECTEM
   // ALTERE O IP PARA O IP DA MÁQUINA ONDE O SERVIDOR ESTÁ RODANDO
-  cors: { origin: "http://localhost:5173" },
+  cors: { origin: "http://localhost:3000" },
   // EXEMPLO: "http://localhost:5173" PARA DESENVOLVIMENTO LOCAL
   // EXEMPLO: "http://SEU-IP:5173" PARA REDE
 });
@@ -69,7 +69,6 @@ io.on("connection", (socket) => {
 const userName = (username, id) => {
   console.log(`Usuário ${username} conectado com o seguinte id: ${id}`);
 };
-
 
 // INICIAR O SERVIDOR
 server.listen(PORT, () => {
